@@ -27,3 +27,7 @@ export function calculate(quantity: number, pricePerItem: number, region: Region
     total,
   }
 }
+
+export function formatPercent(rate: number): string {
+  return `${(rate * 100).toFixed(2)}%`
+}
