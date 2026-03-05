@@ -5,8 +5,8 @@ export interface CalculationResult {
   discountRate: number
   discountAmount: number
   discountedSubtotal: number
-  taxRate: number // placeholder — tax logic
-  taxAmount: number // placeholder — tax logic
+  taxRate: number
+  taxAmount: number
   total: number
 }
 
