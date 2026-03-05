@@ -31,3 +31,11 @@ export function calculate(quantity: number, pricePerItem: number, region: Region
 export function formatPercent(rate: number): string {
   return `${(rate * 100).toFixed(2)}%`
 }
+
+export function formatCurrency(value: number): string {
+  return new Intl.NumberFormat('en-NZ', {
+    style: 'currency',
+    currency: 'NZD',
+    minimumFractionDigits: 2,
+  }).format(value)
+}
