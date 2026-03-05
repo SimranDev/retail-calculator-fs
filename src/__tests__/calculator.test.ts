@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { calculate, getDiscountRate } from '../utils/calculator'
+import { TAX_RATES } from '@/constants'
 
 describe('getDiscountRate', () => {
   it('returns 0% for subtotals below $1,000', () => {
@@ -42,5 +43,18 @@ describe('calculate — subtotal and discount', () => {
   })
   it('handles fractional prices', () => {
     expect(calculate(3, 33.33, 'WAI').subtotal).toBeCloseTo(99.99, 2)
+  })
+})
+
+describe('calculate - regional tax', () => {
+  it('applies AUK tax at 6.85%', () => {
+    const result = calculate(100, 10, 'AUK') // $1,000 -> 3% off = $970
+    expect(result.taxRate).toBe(TAX_RATES['AUK'])
+    expect(result.total).toBeCloseTo(970 * (1 + TAX_RATES['AUK']), 2)
+  })
+  it('applies TAS tax at 8.25%', () => {
+    const result = calculate(100, 100, 'TAS') // $10,000 -> 10% off = $9,000
+    expect(result.taxRate).toBe(TAX_RATES['TAS'])
+    expect(result.total).toBeCloseTo(9000 * (1 + TAX_RATES['TAS']), 2)
   })
 })
