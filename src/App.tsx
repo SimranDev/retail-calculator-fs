@@ -4,6 +4,7 @@ import { RegionSelector } from '@/components/RegionSelector'
 import { useMemo, useState } from 'react'
 import type { RegionCode } from '@/types'
 import { calculate, formatCurrency, formatPercent } from './utils/calculator'
+import { Button } from '@/components/Button'
 
 function App() {
   const [quantity, setQuantity] = useState('')
@@ -16,6 +17,12 @@ function App() {
     if (!qty || !_price || !region || qty <= 0 || _price <= 0) return null
     return calculate(qty, _price, region)
   }, [quantity, price, region])
+
+  const handleReset = () => {
+    setQuantity('')
+    setPrice('')
+    setRegion(null)
+  }
 
   return (
     <>
@@ -61,6 +68,8 @@ function App() {
                 <p className="text-center text-stone-600 text-sm py-4 mb-5">Fill in all fields to see the breakdown</p>
               )}
             </div>
+
+            <Button onClick={handleReset} className="w-full" />
           </div>
         </div>
       </div>
